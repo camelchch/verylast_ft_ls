@@ -6,7 +6,7 @@
 /*   By: saxiao <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 12:43:37 by saxiao            #+#    #+#             */
-/*   Updated: 2018/01/24 12:44:32 by saxiao           ###   ########.fr       */
+/*   Updated: 2018/01/29 15:38:26 by saxiao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,12 @@ static	void	put_colum(t_dir *list, int win_col)
 
 static	void	put_size_mm(t_dir *list, t_max max, t_index *index)
 {
-	char	*tm;
-
 	ft_printf("%c%s", list->type, list->permi);
+	if (index->hv_acl)
+	{
+		ft_printf("%c", list->long_f.aclatr);
+		max.m_link--;
+	}
 	ft_printf("%*d", max.m_link, (list->buf).st_nlink);
 	if (!ft_strchr(index->flags, 'g'))
 		ft_printf("%*s", max.m_owner, (list->long_f).owner);
@@ -83,14 +86,14 @@ static	void	put_size_mm(t_dir *list, t_max max, t_index *index)
 	else
 		ft_printf("%*d,%*d", max.m_maj, list->long_f.major, \
 				max.m_min, list->long_f.minor);
-	tm = list->long_f.change_tm + 3;
+	index->tm = list->long_f.change_tm + 3;
 	if (!list->long_f.sixm)
-	ft_printf("%.13s ", tm);
+		ft_printf("%.13s ", index->tm);
 	else
 	{
-	ft_printf("%.7s ", tm);
-	tm = list->long_f.change_tm + 20;
-	ft_printf(" %.4s ", tm);
+		ft_printf("%.7s ", index->tm);
+		index->tm = list->long_f.change_tm + 20;
+		ft_printf(" %.4s ", index->tm);
 	}
 }
 
@@ -98,11 +101,11 @@ static	void	put_lformat(t_dir *list, t_index *index)
 {
 	t_max	max;
 	char	link[256];
-	int		i;
 
 	if (list)
 	{
 		init_lformat(list, &max, index->flags);
+		index->hv_acl = inclu_acl(list);
 		if (index->k)
 			ft_printf("Total %d\n", max.total);
 		index->k = 1;
@@ -114,8 +117,8 @@ static	void	put_lformat(t_dir *list, t_index *index)
 		if (list->type == 'l')
 		{
 			ft_bzero(link, 256);
-			i = readlink(list->path, link, 256);
-			link[i] = '\0';
+			index->ct = readlink(list->path, link, 256);
+			link[index->ct] = '\0';
 			ft_printf("-> %s", link);
 		}
 		ft_printf("\n");
@@ -129,6 +132,8 @@ void			put_list(t_dir *list, t_index *index, int winsize)
 	{
 		if (ft_strchr(index->flags, 'l') || ft_strchr(index->flags, 'g'))
 			put_lformat(list, index);
+		else if (ft_strchr(index->flags, '1'))
+			put_oneflag(list);
 		else
 			put_colum(list, winsize);
 	}

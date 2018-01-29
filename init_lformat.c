@@ -6,7 +6,7 @@
 /*   By: saxiao <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 12:30:00 by saxiao            #+#    #+#             */
-/*   Updated: 2018/01/24 12:22:58 by saxiao           ###   ########.fr       */
+/*   Updated: 2018/01/29 14:48:15 by saxiao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,4 +146,5 @@ void			init_lformat(t_dir *list, t_max *max, char *flags)
 	}
 	if (inclu_cbfile(list))
 		init_cbfile(list, max);
+	init_acllist(list);
 }

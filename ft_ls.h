@@ -6,7 +6,7 @@
 /*   By: saxiao <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 12:57:00 by saxiao            #+#    #+#             */
-/*   Updated: 2018/01/24 13:13:54 by saxiao           ###   ########.fr       */
+/*   Updated: 2018/01/29 15:38:54 by saxiao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ typedef	struct	s_lformat
 {
 	char	owner[256];
 	char	group[256];
-//	char	permi[10];
 	char	change_tm[40];
 	int		sixm;
 	int		major;
 	int		minor;
+	char	aclatr;
 }				t_lformat;
 
 typedef	struct	s_max
@@ -74,11 +74,14 @@ typedef	struct	s_win
 
 typedef	struct	s_index
 {
-	char			flags[10];
+	char			flags[11];
 	int				i;
 	int				j;
 	int				k;
 	struct winsize	w;
+	int				hv_acl;
+	char			*tm;
+	int				ct;
 	t_dir			*temp;
 }				t_index;
 
@@ -117,5 +120,8 @@ void			init_permi(t_dir *list);
 void			for_init_permi(t_dir *list);
 void			for_initchangetm(t_dir *list);
 int				is_flagls(char c);
+void			init_acllist(t_dir *list);
+int				inclu_acl(t_dir *list);
+void			put_oneflag(t_dir *list);
 void			put_list(t_dir *list, t_index *index, int winsize);
 #endif

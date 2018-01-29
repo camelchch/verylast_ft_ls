@@ -6,7 +6,7 @@
 /*   By: saxiao <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 12:13:50 by saxiao            #+#    #+#             */
-/*   Updated: 2018/01/24 12:45:43 by saxiao           ###   ########.fr       */
+/*   Updated: 2018/01/29 15:13:49 by saxiao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static	void	for_renidir(t_dir **dic, t_dir **only_dir, t_index *dex)
 		dex->i = 1;
 	if ((*dic && *only_dir) || (*only_dir && (*only_dir)->next))
 		dex->j = 1;
+	if (!*dic)
+		dex->k = 1;
 }
 
 void			reini_dir(t_dir **dic, t_dir **only_dir, t_index *dex, int w)

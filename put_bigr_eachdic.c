@@ -6,7 +6,7 @@
 /*   By: saxiao <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 12:29:02 by saxiao            #+#    #+#             */
-/*   Updated: 2018/01/24 13:14:20 by saxiao           ###   ########.fr       */
+/*   Updated: 2018/01/29 15:58:55 by saxiao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int				is_flagls(char c)
 {
 	return (c == 'l' || c == 'R' || c == 'a' || c == 'r' || c == 't' || \
-			c == 'u' || c == 'f' || c == 'g' || c == 'd');
+			c == 'u' || c == 'f' || c == 'g' || c == 'd' || c == '1');
 }
 
 static void		for_bigr(t_dir **sub_lt, char **sub_dic, t_dir *only, char *dic)
@@ -46,6 +46,7 @@ void			put_bigr(char *dic, int winsize, t_dir *only, t_index *index)
 		put_list(s, index, winsize);
 		if (inclu_dir(s))
 			inside_bigr(s, sub_dic, winsize, index);
+		freelist(s);
 		closedir(sub_dp);
 	}
 	else
@@ -87,6 +88,7 @@ void			eachdic(t_dir *only_dir, int winsize, t_index *dex)
 			for_eachdic(only_dir, winsize, dir_lt, dex);
 		dex->i = 1;
 		dex->j = 1;
+		freelist(dir_lt);
 		closedir(dp);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: saxiao <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 12:24:00 by saxiao            #+#    #+#             */
-/*   Updated: 2018/01/24 17:15:57 by saxiao           ###   ########.fr       */
+/*   Updated: 2018/01/29 15:58:25 by saxiao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static	void	for_setflag(char **av)
 {
 	ft_printf("ft_ls: illegal option -- %c\n", **av);
-	ft_printf("usage: ft_ls [-lRartufgd] [file ...]\n");
+	ft_printf("usage: ft_ls [-lRartufgd1] [file ...]\n");
 	exit(1);
 }
 
@@ -29,7 +29,7 @@ int				set_flags_ls(char *flags, char **av)
 	ct = 1;
 	i = 0;
 	av++;
-	ft_bzero(flags, 10);
+	ft_bzero(flags, 11);
 	while (*av && (*av)[0] == '-' && (*av)[1])
 	{
 		(*av)++;
