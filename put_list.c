@@ -73,7 +73,7 @@ static	void	put_size_mm(t_dir *list, t_max max, t_index *index)
 {
 	char	*tm;
 
-	ft_printf("%c%s", list->type, (list->long_f).permi);
+	ft_printf("%c%s", list->type, list->permi);
 	ft_printf("%*d", max.m_link, (list->buf).st_nlink);
 	if (!ft_strchr(index->flags, 'g'))
 		ft_printf("%*s", max.m_owner, (list->long_f).owner);
@@ -84,7 +84,14 @@ static	void	put_size_mm(t_dir *list, t_max max, t_index *index)
 		ft_printf("%*d,%*d", max.m_maj, list->long_f.major, \
 				max.m_min, list->long_f.minor);
 	tm = list->long_f.change_tm + 3;
+	if (!list->long_f.sixm)
 	ft_printf("%.13s ", tm);
+	else
+	{
+	ft_printf("%.7s ", tm);
+	tm = list->long_f.change_tm + 20;
+	ft_printf(" %.4s ", tm);
+	}
 }
 
 static	void	put_lformat(t_dir *list, t_index *index)
@@ -120,7 +127,7 @@ void			put_list(t_dir *list, t_index *index, int winsize)
 {
 	if (list)
 	{
-		if (ft_strchr(index->flags, 'l'))
+		if (ft_strchr(index->flags, 'l') || ft_strchr(index->flags, 'g'))
 			put_lformat(list, index);
 		else
 			put_colum(list, winsize);

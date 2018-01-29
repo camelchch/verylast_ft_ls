@@ -19,19 +19,23 @@
 # include "libft/libft.h"
 
 # define RED "\033[0;31m"
+# define BGRED "\033[7;31m"
 # define GREEN "\033[0;32m"
 # define BGYELLOW "\033[7;33m"
 # define BGBLUE "\033[7;34m"
 # define BLUE "\033[1;36m"
 # define PURPLE "\033[0;35m"
 # define RESET "\033[0m"
+# define SIXMP 15778476
+# define SIXMM -15778476
 
 typedef	struct	s_lformat
 {
 	char	owner[256];
 	char	group[256];
-	char	permi[10];
+//	char	permi[10];
 	char	change_tm[40];
+	int		sixm;
 	int		major;
 	int		minor;
 }				t_lformat;
@@ -51,6 +55,7 @@ typedef	struct	s_dir
 {
 	struct stat		buf;
 	char			name[256];
+	char			permi[10];
 	int				na_len;
 	int				file;
 	char			type;
@@ -86,10 +91,12 @@ typedef	struct	s_ct
 
 void			color_reset(void);
 void			blue(void);
+void			bg_red(void);
 void			put_dirname(t_dir *list, int max);
 void			del_onelt(t_dir **list, t_dir *onelt);
 void			get_dirlt(t_dir **list, DIR *sub_dp, char *sub, char *flags);
 t_dir			*add_lst(t_dir *list, t_dir *add);
+t_dir			*for_revlist(t_dir **list, char c);
 void			sort_rev_list(t_dir **list, char *flags, char c);
 void			init_lformat(t_dir *list, t_max *max, char *flags);
 int				inclu_cbfile(t_dir *list);
@@ -106,6 +113,9 @@ int				for_addirlt(char *path, t_dir *add);
 void			put_bigr(char *dic, int winsize, t_dir *only, t_index *index);
 void			inside_bigr(t_dir *s, char *sub_dic, int win, t_index *index);
 void			init_forowngp(t_dir *list);
+void			init_permi(t_dir *list);
+void			for_init_permi(t_dir *list);
+void			for_initchangetm(t_dir *list);
 int				is_flagls(char c);
 void			put_list(t_dir *list, t_index *index, int winsize);
 #endif

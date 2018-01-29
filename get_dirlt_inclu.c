@@ -59,6 +59,7 @@ static	t_dir	*add_dirlt(t_dir *list, struct dirent *dir, char *dic)
 		ft_strcpy(add->name, dir->d_name);
 		ft_strcpy(add->path, path);
 		add->na_len = ft_strlen(add->name);
+		init_permi(add);
 		add->next = NULL;
 		free(path);
 		return (add_lst(list, add));

@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <pwd.h>
 #include <grp.h>
+#include <time.h>
 #include <uuid/uuid.h>
 #include "ft_ls.h"
 
@@ -68,32 +69,33 @@ static	void	init_m(t_dir *list, t_max *max)
 	max->m_group = max->m_group + 2;
 }
 
-static	void	init_permi(t_dir *list)
+void			init_permi(t_dir *list)
 {
 	int		i;
 
 	i = 0;
 	while (i < 9)
-		list->long_f.permi[i++] = '-';
-	list->long_f.permi[i] = '\0';
+		list->permi[i++] = '-';
+	list->permi[i] = '\0';
 	if (list->buf.st_mode & S_IRUSR)
-		list->long_f.permi[0] = 'r';
+		list->permi[0] = 'r';
 	if (list->buf.st_mode & S_IWUSR)
-		list->long_f.permi[1] = 'w';
+		list->permi[1] = 'w';
 	if (list->buf.st_mode & S_IXUSR)
-		list->long_f.permi[2] = 'x';
+		list->permi[2] = 'x';
 	if (list->buf.st_mode & S_IRGRP)
-		list->long_f.permi[3] = 'r';
+		list->permi[3] = 'r';
 	if (list->buf.st_mode & S_IWGRP)
-		list->long_f.permi[4] = 'w';
+		list->permi[4] = 'w';
 	if (list->buf.st_mode & S_IXGRP)
-		list->long_f.permi[5] = 'x';
+		list->permi[5] = 'x';
 	if (list->buf.st_mode & S_IROTH)
-		list->long_f.permi[6] = 'r';
+		list->permi[6] = 'r';
 	if (list->buf.st_mode & S_IWOTH)
-		list->long_f.permi[7] = 'w';
+		list->permi[7] = 'w';
 	if (list->buf.st_mode & S_IXOTH)
-		list->long_f.permi[8] = 'x';
+		list->permi[8] = 'x';
+	for_init_permi(list);
 }
 
 static	void	init_msize(t_dir *list, t_max *max)
@@ -129,18 +131,17 @@ void			init_lformat(t_dir *list, t_max *max, char *flags)
 	cp = list;
 	while (cp)
 	{
-		init_permi(cp);
-		cp = cp->next;
-	}
-	cp = list;
-	while (cp)
-	{
+		cp->long_f.sixm = 0;
 		if (ft_strchr(flags, 'u'))
-			ft_strcpy((cp->long_f).change_tm, ctime((const time_t *)\
-						&((cp->buf).st_atimespec).tv_sec));
+			for_initchangetm(cp);
 		else
+		{
 			ft_strcpy((cp->long_f).change_tm, ctime((const time_t *)\
 						&((cp->buf).st_mtimespec).tv_sec));
+			if (time(NULL) - (cp->buf).st_atimespec.tv_sec > SIXMP || \
+			time(NULL) - (cp->buf).st_atimespec.tv_sec < SIXMM)
+				cp->long_f.sixm = 1;
+		}
 		cp = cp->next;
 	}
 	if (inclu_cbfile(list))

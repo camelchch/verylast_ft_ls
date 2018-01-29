@@ -42,3 +42,64 @@ void	inside_bigr(t_dir *s, char *sub_dic, int winsize, t_index *index)
 		free(temp);
 	}
 }
+
+void	for_init_permi(t_dir *list)
+{
+	if (list->buf.st_mode & S_ISUID)
+	{
+		if (list->permi[2] == 'x')
+			list->permi[2] = 's';
+		else
+			list->permi[2] = 'S';
+	}
+	if (list->buf.st_mode & S_ISGID)
+	{
+		if (list->permi[5] == 'x')
+			list->permi[5] = 's';
+		else
+			list->permi[5] = 'S';
+	}
+	if (list->buf.st_mode & S_ISVTX)
+	{
+		if (list->permi[8] == 'x')
+			list->permi[8] = 't';
+		else
+			list->permi[8] = 'T';
+	}
+}
+
+void	freelist(t_dir *list)
+{
+	t_dir	*temp;
+
+	while (list)
+	{
+		temp = list;
+		list = list->next;
+		free(temp);
+	}
+}
+
+t_dir	*for_revlist(t_dir **list, char c)
+{
+	t_dir	*cp;
+	t_dir	*re;
+	int		no_dir;
+
+	no_dir = 0;
+	re = NULL;
+	while (*list && !no_dir)
+	{
+		cp = *list;
+		while (cp->next)
+			cp = cp->next;
+		if (!(c == 'd' && !cp->file))
+		{
+			re = add_lst(re, cp);
+			del_onelt(list, cp);
+		}
+		else
+			no_dir = 1;
+	}
+return (re);
+}

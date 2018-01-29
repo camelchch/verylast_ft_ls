@@ -42,8 +42,10 @@ void			put_dirname(t_dir *list, int max)
 		bg_yellow();
 	else if (list->type == 'b')
 		bg_blue();
-	else if (!ft_strcmp(list->name, "ft_ls"))
+	else if (list->permi[2] == 'x')
 		red();
+	else if (list->permi[2] == 's')
+		bg_red();
 	ft_printf("%s", list->name);
 	color_reset();
 	ft_printf("%*s", max - ft_strlen(list->name), " ");

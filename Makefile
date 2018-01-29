@@ -22,7 +22,7 @@ NAME = ft_ls
 SRC =	creat_dic.c get_dirlt_inclu.c incb_deladdlist.c\
 			init_lformat.c main.c put_bigr_eachdic.c \
 			put_color.c put_dirname.c put_list.c sort_rev_list.c\
-			for_others.c
+			for_others.c for_longfuncs.c
 
 LIB_NAME = libft.a
 PRINTF_NAME = libftprintf.a

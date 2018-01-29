@@ -108,10 +108,11 @@ static	void	sort_list_d(t_dir **list, char *flags)
 
 void			sort_rev_list(t_dir **list, char *flags, char c)
 {
-	t_dir	*cp;
-	t_dir	*re;
+	t_dir	*re1;
+	t_dir	*re2;
 
-	re = NULL;
+	re1 = NULL;
+	re2 = NULL;
 	if (*list)
 	{
 		if (!ft_strchr(flags, 'd') && c == 'd')
@@ -120,15 +121,15 @@ void			sort_rev_list(t_dir **list, char *flags, char c)
 			sort_list(list, flags);
 		if (ft_strchr(flags, 'r') && !ft_strchr(flags, 'f'))
 		{
-			while (*list)
+			if (c == 'd')
 			{
-				cp = *list;
-				while (cp->next)
-					cp = cp->next;
-				re = add_lst(re, cp);
-				del_onelt(list, cp);
+				re2 = for_revlist(list, 'd');
+				re1 = for_revlist(list, 'k');
+				re1 = add_lst(re1, re2);
 			}
-			*list = re;
+			else
+				re1 = for_revlist(list, 'k');
+			*list = re1;
 		}
 	}
 }

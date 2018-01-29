@@ -54,6 +54,7 @@ static	t_dir	*add_dic(t_dir *list, char *dic)
 	ft_strcpy(add->name, dic);
 	ft_strcpy(add->path, add->name);
 	add->na_len = ft_strlen(add->name);
+	init_permi(add);
 	add->next = NULL;
 	return (add_lst(list, add));
 }

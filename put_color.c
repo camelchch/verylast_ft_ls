@@ -23,24 +23,17 @@ void	color_reset(void)
 	ft_printf(RESET);
 }
 
+void	bg_red(void)
+{
+	ft_printf(BGRED);
+}
+
 int		for_putbigr(t_dir *list)
 {
 	if (list->file && ft_strcmp(list->name, ".")\
 			&& ft_strcmp(list->name, ".."))
 		return (1);
 	return (0);
-}
-
-void	freelist(t_dir *list)
-{
-	t_dir	*temp;
-
-	while (list)
-	{
-		temp = list;
-		list = list->next;
-		free(temp);
-	}
 }
 
 int		for_addirlt(char *path, t_dir *add)
