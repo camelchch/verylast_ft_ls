@@ -6,7 +6,7 @@
 /*   By: saxiao <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 13:10:56 by saxiao            #+#    #+#             */
-/*   Updated: 2018/01/29 15:34:54 by saxiao           ###   ########.fr       */
+/*   Updated: 2018/01/30 12:34:51 by saxiao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	inside_bigr(t_dir *s, char *sub_dic, int winsize, t_index *index)
 		if (for_putbigr(s))
 			put_bigr(sub_dic, winsize, s, index);
 		s = s->next;
-		free(temp);
 	}
 }
 

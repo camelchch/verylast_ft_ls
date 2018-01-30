@@ -6,7 +6,7 @@
 /*   By: saxiao <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 13:10:56 by saxiao            #+#    #+#             */
-/*   Updated: 2018/01/29 15:33:28 by saxiao           ###   ########.fr       */
+/*   Updated: 2018/01/30 11:27:56 by saxiao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,14 @@ int				inclu_acl(t_dir *list)
 
 void			put_oneflag(t_dir *list)
 {
-	while (list)
+	t_dir	*cp;
+
+	cp = list;
+	while (cp)
 	{
-		put_dirname(list, 0);
+		put_dirname(cp, 0);
 		ft_printf("\n");
-		list = list->next;
+		cp = cp->next;
 	}
+	freelist(list);
 }

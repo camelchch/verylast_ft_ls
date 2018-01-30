@@ -6,7 +6,7 @@
 /*   By: saxiao <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 12:29:02 by saxiao            #+#    #+#             */
-/*   Updated: 2018/01/29 15:58:55 by saxiao           ###   ########.fr       */
+/*   Updated: 2018/01/30 12:35:08 by saxiao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static	void	for_eachdic(t_dir *only, int win, t_dir *dir_lt, t_index *dex)
 		if (dir_lt->file && ft_strcmp(dir_lt->name, ".") && \
 				ft_strcmp(dir_lt->name, ".."))
 			put_bigr(only->name, win, dir_lt, dex);
-		free(temp);
 		dir_lt = dir_lt->next;
 	}
 }
